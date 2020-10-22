@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model MyTwitter.ViewModels.MessageViewModel
+
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                <form method="get" class="border border-info bg-info rounded pt-3 mx-auto">
+                    <div>
+                        <h4>Hello @User.Identity.Name</h4>
+                        <a>Friends</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <form method="post" class="border border-info bg-info rounded pt-3 mx-auto">
+                    <div class="form-group">
+                        <textarea class="text-info mx-auto col-md-10" asp-for="Msg.Message"></textarea>
+                        <span asp-validation-for="Msg.Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </form>
+            </div>
+            <hr />
+            <div class="text-center">
+                <form method="get" class="  pt-3 mx-auto">
+                    @foreach (var item in Model.Messages)
+                    {
+
+                        <div class="card text-info">
+                            <div align="left" class="card-header p-0 bg-info text-dark">
+                                Posted by: @Html.DisplayFor(modelItem => item.User)
+                            </div>
+                            <div align="left" class="card-body bg-light">
+                                @Html.DisplayFor(modelItem => item.Message)
+                            </div>
+                        </div>
+                        <br />
+                    }
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <form method="get" class="border border-info bg-info rounded pt-3 mx-auto">
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome to Twitter</h1>
+    </div>
+}
+

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MyTwitter.Models.PostMessage>
+
+
+@foreach (var item in Model)
+{
+    <br />
+    <div class="card col-md-4 text-info">
+        <div class="card-header">
+            @Html.DisplayFor(modelItem => item.User)
+        </div>
+        <div class="card-body">
+            @Html.DisplayFor(modelItem => item.Message)
+        </div>
+    </div>
+}
+
